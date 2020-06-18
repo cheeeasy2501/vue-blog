@@ -11,9 +11,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors());
 
-const posts = require('./routes/api/posts');
+const post = require('./routes/api/post');
 
-app.use("/api/posts", posts);
+app.use("/api/post", post);
 
 const port = process.env.PORT || 3000;
 

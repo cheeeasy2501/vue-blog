@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ path: `post/${post.id}` }" class="element-post">
+    <router-link :to="{ path: `post/${post._id}` }" class="element-post">
         <div class="element-post__title">{{ post.title }}</div>
         <div class="element-post__body">{{ post.body }}</div>
         <div class="element-post__hover-background"><span>Прочитать пост</span></div>

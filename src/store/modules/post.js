@@ -1,3 +1,5 @@
+import { postConfig } from '../../../server/configs/config'
+
 const state = {
     posts: [],
     post: {}
@@ -23,7 +25,7 @@ const actions = {
     },
 
     get_posts: async (context) => {
-        let url = 'https://jsonplaceholder.typicode.com/posts';
+        let url = postConfig.GET_POSTS + 1;
         fetch(url).then((response) => {
             return response.json();
         }).then((data) => {
@@ -33,7 +35,7 @@ const actions = {
 
     get_post: async (context, id) => {
         context.commit('set_loaded', false);
-        let url = `https://jsonplaceholder.typicode.com/posts/${id}`;
+        let url = postConfig.GET_POST + id;
         fetch(url).then((response) => {
             return response.json();
         }).then((data) => {
