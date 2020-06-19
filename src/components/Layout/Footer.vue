@@ -1,10 +1,10 @@
 <template>
     <footer id="footer">
-        <div class="container">
+        <b-container class="container">
           <div class="builded">
                Builded by jsonplaceholder
           </div>
-        </div>  
+        </b-container>  
     </footer>    
 </template>
 <style scoped>

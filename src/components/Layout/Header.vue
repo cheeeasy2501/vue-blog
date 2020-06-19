@@ -1,9 +1,9 @@
 <template>
- <div class="container">
+ <b-container class="container">
     <nav class="nav">
       <div class="nav-text">JsonPlaceholder Prototype</div>
     </nav>
-   </div>
+   </b-container>
 </template>
 <script>
     export default {

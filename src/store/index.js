@@ -7,16 +7,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLoaded: false,
+    loading: false,
   },
   mutations: {
-    set_loaded: (state, payload) => {
-      state.isLoaded = payload;
+    set_loading: (state, payload) => {
+      state.loading = payload;
     }
   },
   getters: {
-    isLoaded: state => {
-      return state.isLoaded;
+    loading: state => {
+      return state.loading;
     }
   },
   actions: {

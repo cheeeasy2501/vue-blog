@@ -6,18 +6,19 @@ const router = express.Router();
 // Get Posts
 router.get('/page/:pageNumber', async (req, res) => {
     try {
-        const pageLimit = 12;
+        const pageLimit = 9;
         const { pageNumber } = req.params;
-        const postsCount = Math.ceil(await Post.find({}).countDocuments() / pageLimit);
+        const postCount = await Post.find({}).countDocuments();
+        const pageCount = Math.ceil( postCount / pageLimit);
 
-        if ((pageNumber - 1) < 0 || (pageNumber > postsCount)) {
+        if ((pageNumber - 1) < 0 || (pageNumber > pageCount)) {
             return res.status(404).json({ message: 'Not Found' });
         }
 
         const skip = pageNumber - 1;
         const postCollection = await Post.find({}).skip((skip) * pageLimit).limit(pageLimit);
 
-        res.status(200).json(postCollection);
+        res.status(200).json({ postCollection, postCount });
     } catch (e) {
         return res.status(400).json({ message: 'Server Error' });
     }
@@ -27,7 +28,6 @@ router.get('/page/:pageNumber', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(id);
         const post = await Post.findOne({ _id: id });
 
         if (!post) {
