@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import postModule from '@/store/modules/post'
-import commentModule from '@/store/modules/comment'
+import postModule from '@/store/modules/post.module'
+import commentModule from '@/store/modules/comment.module'
 
 Vue.use(Vuex)
 

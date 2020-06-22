@@ -10,8 +10,8 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
 import './registerServiceWorker' 
-import router from './router'
-import store from './store'
+import router from './router/router'
+import store from './store/store'
 
 Vue.config.productionTip = false
 

@@ -1,10 +1,11 @@
-import { postConfig } from '../../../server/configs/config'
+import { postConfig } from '../../../server/config/config'
 
 const state = {
     postModel: {
         postCollection: null,
-        postCount: null
+        postCount: null,
     },
+    currentPage: 1,
     post: {}
 };
 const getters = {
@@ -13,6 +14,9 @@ const getters = {
     },
     postCount: state => {
         return state.postModel.postCount;
+    },
+    currentPage: state => {
+        return state.currentPage;
     },
     post: state => {
         return state.post;
@@ -25,12 +29,17 @@ const mutations = {
     set_postCollection: (state, payload) => {
         state.postModel = payload;
     },
+    set_currentPage: (state, payload) => {
+        state.currentPage = payload
+    }
 };
 const actions = {
     set_posts: (context, payload) => {
         context.commit('set_postCollection', payload);
     },
-
+    set_currentPage: (context, payload) => {
+        context.commit('set_currentPage', payload);
+    },
     get_posts: async (context, pageNumber) => {
         context.commit('set_loading', true);
         let url = postConfig.GET_POSTS + Number(pageNumber);

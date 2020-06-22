@@ -13,8 +13,8 @@
   </div>
 </template>
 <script>
-import headerElement from "@/components/Layout/Header";
-import footerElement from "@/components/Layout/Footer";
+import headerElement from "@/layouts/Header";
+import footerElement from "@/layouts/Footer";
 import loader from "@/components/Page-Loader";
 
 export default {
