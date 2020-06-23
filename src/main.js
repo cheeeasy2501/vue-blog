@@ -20,13 +20,3 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
-
-
-router.beforeEach((to, from, next) => {
-  store.state.loading = true;
-  next()
-})
-
-router.afterEach((to, from, next) => {
-  store.state.loading = false;
-})

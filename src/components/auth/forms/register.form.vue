@@ -3,7 +3,7 @@
     <template v-slot:overlay>
       <b-spinner variant="primary" label="Spinning"></b-spinner>
     </template>
-    <b-form @submit="onSubmit" @reset="onReset">
+    <b-form @submit.prevent="onSubmit" @reset="onReset">
       <b-form-group
         id="input-group-1"
         label="Email address:"
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import swal from "sweetalert";
 import { authConfig } from "../../../../server/config/config";
 
 export default {
@@ -61,9 +62,9 @@ export default {
     loading: false,
   }),
   methods: {
-    async onSubmit(e) {
-      e.preventDefault();
+    async onSubmit() {
       this.loading = true;
+
       const res = await fetch(authConfig.REGISTER, {
         method: "POST",
         headers: {
@@ -72,11 +73,12 @@ export default {
         body: JSON.stringify(this.form),
       }).then((data) => data.json());
 
-      console.log("response", res);
-      alert("ok");
       this.loading = false;
+
       if (res.auth) {
         localStorage.setItem("jwt", res.token);
+        swal("Successful Login!", "You are now online :)", "success");
+        this.$router.push("/");
         return;
       }
     },

@@ -1,9 +1,9 @@
 <template>
-  <div class="register-component">
-    <b-modal id="modal-singIn" centered title="Sing In" hide-footer>
+  <b-container>
+    <div class="login-component">
       <loginform />
-    </b-modal>
-  </div>
+    </div>
+  </b-container>
 </template>
 <script>
 import loginform from "@/components/auth/forms/login.form";

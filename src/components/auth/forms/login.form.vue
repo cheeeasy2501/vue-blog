@@ -3,7 +3,7 @@
     <template v-slot:overlay>
       <b-spinner variant="primary" label="Spinning"></b-spinner>
     </template>
-    <b-form @submit="onSubmit" @reset="onReset">
+    <b-form @submit.prevent="onSubmit" @reset="onReset">
       <b-form-group
         id="input-group-1"
         label="Email address:"
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import swal from "sweetalert";
 import { authConfig } from "../../../../server/config/config";
 
 export default {
@@ -48,9 +49,7 @@ export default {
     loading: false,
   }),
   methods: {
-    async onSubmit(e) {
-      e.preventDefault();
-
+    async onSubmit() {
       this.loading = true;
 
       const response = await fetch(authConfig.LOGIN, {
@@ -68,12 +67,18 @@ export default {
 
       if (data.auth) {
         localStorage.setItem("jwt", token);
+        swal("Successful Login!", "You are now online :)", "success");
+        this.$router.push("/");
+
         return;
       }
 
+      swal(
+        "Not authorized!",
+        "Try using a different username or password",
+        "error"
+      );
       localStorage.removeItem("jwt");
-
-      // this.$bvModal.hide("modal-singIn");
     },
     onReset() {},
   },
