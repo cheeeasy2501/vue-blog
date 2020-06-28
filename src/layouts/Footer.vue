@@ -1,18 +1,29 @@
 <template>
-    <footer id="footer">
-        <b-container class="container">
-          <div class="builded">
-               Builded by jsonplaceholder
-          </div>
-        </b-container>  
-    </footer>    
+  <v-footer dark padless>
+    <v-card class="flex" flat tile>
+      <v-card-title class="blue  accent-4">
+        <strong class="subheading"
+          >Get connected with us on social networks!</strong
+        >
+
+        <v-spacer></v-spacer>
+
+        <v-btn v-for="icon in icons" :key="icon" class="mx-4" dark icon>
+          <v-icon size="24px">{{ icon }}</v-icon>
+        </v-btn>
+      </v-card-title>
+
+      <v-card-text class="py-2 white--text text-center blue accent-4">
+        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+      </v-card-text>
+    </v-card>
+  </v-footer>
 </template>
-<style scoped>
- #footer {
-    background: white;
-    padding: 16px 0;
- }
- .builded {
-     font-size: 14px;
- }
-</style>
+<script>
+export default {
+  data: () => ({
+    icons: ["mdi-facebook", "mdi-twitter", "mdi-linkedin", "mdi-instagram"],
+  }),
+};
+</script>
+<style scoped></style>

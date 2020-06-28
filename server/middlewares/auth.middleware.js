@@ -17,6 +17,16 @@ class AuthMiddleware {
       next();
     });
   }
+
+  async registerValidate(req, res, next){
+    let { email, login, password } = req.body;
+
+    if((email || login || password) === '') {
+      res.status(400).json({ message:'Invalid body' });
+    }
+
+    next();
+  }
 }
 
 module.exports = new AuthMiddleware();

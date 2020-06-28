@@ -4,6 +4,7 @@ const state = {
     postModel: {
         postCollection: null,
         postCount: null,
+        pageCount: null
     },
     currentPage: 1,
     post: {}
@@ -14,6 +15,9 @@ const getters = {
     },
     postCount: state => {
         return state.postModel.postCount;
+    },
+    pageCount: state => {
+        return state.postModel.pageCount;
     },
     currentPage: state => {
         return state.currentPage;
@@ -31,7 +35,7 @@ const mutations = {
     },
     set_currentPage: (state, payload) => {
         state.currentPage = payload
-    }
+    },
 };
 const actions = {
     set_posts: (context, payload) => {

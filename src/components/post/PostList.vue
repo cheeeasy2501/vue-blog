@@ -1,21 +1,26 @@
 <template>
-  <b-container fluid class="container">
-    <b-row class="posts">
+  <v-container>
+    <v-pagination
+      v-model="currentPage"
+      :length="pageLength"
+      color="blue accent-4"
+      @input="toTop()"
+    ></v-pagination>
+    <v-row>
       <PostElementComponent v-for="post in posts" :key="post.id" :post="post" />
-      <b-col xl="12">
-        <b-pagination
-          align="fill"
-          v-model="currentPage"
-          :per-page="10"
-          :total-rows="totalRows"
-        ></b-pagination>
-      </b-col>
-    </b-row>
-  </b-container>
+    </v-row>
+    <v-pagination
+      v-model="currentPage"
+      :length="pageLength"
+      color="blue accent-4"
+      @input="toTop()"
+    ></v-pagination>
+  </v-container>
 </template>
 <script>
 import PostElementComponent from "@/components/post/PostElement";
-import { mapState, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
+
 export default {
   data: () => ({
     currentPage: 1,
@@ -25,7 +30,11 @@ export default {
     this.$store.dispatch("get_posts", this.currentPage);
   },
   computed: {
-    ...mapGetters({ posts: "postCollection", totalRows: "postCount" }),
+    ...mapGetters({
+      posts: "postCollection",
+      totalRows: "postCount",
+      pageLength: "pageCount",
+    }),
   },
   watch: {
     currentPage: {
@@ -37,6 +46,11 @@ export default {
   },
   components: {
     PostElementComponent,
+  },
+  methods: {
+    toTop() {
+      this.$vuetify.goTo(0);
+    },
   },
 };
 </script>

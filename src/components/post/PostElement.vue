@@ -1,24 +1,44 @@
 <template>
-  <b-col class="mb-4" xl="6" lg="6" md="6" xs="12">
-    <router-link :to="{ path: `post/${post._id}` }">
-      <b-card
-        :title="post.title"
-        title-tag="h3"
-        header="Статья"
-        header-tag="h5"
-        border-variant="light"
-        header-bg-variant="light"
-        header-text-variant="dark"
-        body-text-variant="dark"
-        align="left"
-      >
-        <b-card-text>{{ post.body }}</b-card-text>
-        <template v-slot:footer>
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </template>
-      </b-card>
-    </router-link>
-  </b-col>
+  <v-col cols="12" sm="12" md="6" lg="4">
+    <v-card max-width="500" class="mx-auto">
+      <v-list-item>
+        <v-list-item-avatar color="grey"></v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title class="headline"
+            > {{ post.title }}</v-list-item-title
+          >
+          <v-list-item-subtitle>by Kurt Wagner</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-img
+        src="https://cdn.vuetifyjs.com/images/cards/mountain.jpg"
+        height="194"
+      ></v-img>
+
+      <v-card-text>
+         {{ post.body }}
+      </v-card-text>
+
+      <v-card-actions>
+        <v-btn depressed large color="primary"
+          :to="{ path: `post/${post._id}` }"
+        >
+          Read
+        </v-btn>
+        <v-btn   depressed large color="primary">
+          Bookmark
+        </v-btn>
+        <v-spacer></v-spacer>
+        <v-btn icon>
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
+        <v-btn icon>
+          <v-icon>mdi-share-variant</v-icon>
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-col>
 </template>
 <script>
 export default {

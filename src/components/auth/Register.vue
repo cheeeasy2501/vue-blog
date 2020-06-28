@@ -1,7 +1,9 @@
 <template>
-  <div class="register-component">
+  <v-row align="center" justify="center" style="height:100%">
+    <v-col cols="12" sm="8" md="6" lg="4">
       <registerform />
-  </div>
+    </v-col>
+  </v-row>
 </template>
 <script>
 import registerform from "@/components/auth/forms/register.form";

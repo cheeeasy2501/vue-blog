@@ -1,86 +1,63 @@
 <template>
-  <b-overlay :show="loading" rounded="lg" opacity="0.6">
-    <template v-slot:overlay>
-      <b-spinner variant="primary" label="Spinning"></b-spinner>
-    </template>
-    <b-form @submit.prevent="onSubmit" @reset="onReset">
-      <b-form-group
-        id="input-group-1"
-        label="Email address:"
-        label-for="input-1"
-      >
-        <b-form-input
-          id="input-1"
-          v-model="form.email"
+  <v-card class="elevation-12">
+    <v-toolbar color="primary" dark flat>
+      <v-toolbar-title>Sing In</v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
+    <v-card-text>
+      <v-form v-model="validate.notValid" :lazy-validation="false" ref="form">
+        <v-text-field
+          label="Email"
+          name="email"
+          prepend-icon="mdi-account"
           type="email"
+          v-model="form.email"
+          :rules="validate.emailRules"
           required
-          placeholder="Enter email"
-        ></b-form-input>
-      </b-form-group>
+        ></v-text-field>
 
-      <b-form-group id="input-group2" label="Password:" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          v-model="form.password"
+        <v-text-field
+          id="password"
+          label="Password"
+          name="password"
+          prepend-icon="mdi-lock"
           type="password"
+          v-model="form.password"
+          :rules="validate.passwordRules"
           required
-          placeholder="Enter password"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-button type="submit" variant="primary" :disabled="loading"
-        >Login</b-button
+        ></v-text-field>
+      </v-form>
+      <v-card-text class="d-flex justify-start align-center"
+        >No account?
+        <v-btn class="ml-4" :to="{ path: '/register' }" small color="primary"
+          >Sign Up</v-btn
+        ></v-card-text
       >
-      <b-button type="reset" variant="danger">Reset</b-button>
-    </b-form>
-  </b-overlay>
+    </v-card-text>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn
+        :disabled="!validate.notValid"
+        @click="onSubmit('login')"
+        color="success"
+        >Login</v-btn
+      >
+      <v-btn color="error" class="mr-4" @click="onReset($refs.form)">
+        Reset Form
+      </v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
-import swal from "sweetalert";
-import { authConfig } from "../../../../server/config/config";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  data: () => ({
-    form: {
-      email: "",
-      password: "",
-    },
-    loading: false,
-  }),
+  computed: {
+    ...mapGetters({ form: "form", validate: "validate" }),
+  },
   methods: {
-    async onSubmit() {
-      this.loading = true;
-
-      const response = await fetch(authConfig.LOGIN, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(this.form),
-      }).then((response) => response);
-
-      const data = await response.json();
-      const token = await response.headers.get("x-access-token");
-
-      this.loading = false;
-
-      if (data.auth) {
-        localStorage.setItem("jwt", token);
-        swal("Successful Login!", "You are now online :)", "success");
-        this.$router.push("/");
-
-        return;
-      }
-
-      swal(
-        "Not authorized!",
-        "Try using a different username or password",
-        "error"
-      );
-      localStorage.removeItem("jwt");
-    },
-    onReset() {},
+    ...mapActions({ onSubmit: "onSubmit", onReset: "formReset" }),
   },
 };
 </script>

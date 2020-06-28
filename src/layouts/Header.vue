@@ -1,36 +1,60 @@
 <template>
-  <b-navbar toggleable="lg" type="dark" variant="dark">
-    <b-container class="container">
-      <b-navbar-brand href="#">NavBar</b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+  <v-card class="mx-auto overflow-hidden">
+    <v-app-bar color="blue accent-4" dense dark fixed>
+      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-link class="text-light" to='/register'>Sing Up</b-link>
-        </b-navbar-nav>
-        <b-navbar-nav>
-           <b-link class="text-light"  to='/login'>Sing In</b-link>
-        </b-navbar-nav>
+      <v-toolbar-title>Vue Blog</v-toolbar-title>
 
-        <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown right>
-            <!-- Using 'button-content' slot -->
-            <template v-slot:button-content>
-              <em>User</em>
-            </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-          </b-nav-item-dropdown>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-container>
-  </b-navbar>
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-menu left bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item v-for="n in 5" :key="n" @click="() => {}">
+            <v-list-item-title>Option {{ n }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </v-app-bar>
+
+    <v-navigation-drawer v-model="drawer" fixed temporary>
+      <v-list nav dense>
+        <v-list-item-group active-class="white--text blue">
+          <v-list-item :to="{ path: '/' }">
+            <v-list-item-icon>
+              <v-icon>mdi-home</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item>
+
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Account</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+  </v-card>
 </template>
 <script>
 export default {
   data: () => ({
-    menuVisible: false,
+    drawer: false,
   }),
 };
 </script>

@@ -3,7 +3,7 @@ const Post = require("../models/post.model");
 class PostController {
   async getPage(req, res) {
     try {
-      const pageLimit = 10;
+      const pageLimit = 12;
       const { pageNumber } = req.params;
       const postCount = await Post.find({}).countDocuments();
       const pageCount = Math.ceil(postCount / pageLimit);
@@ -11,14 +11,14 @@ class PostController {
       if (pageNumber - 1 < 0 || pageNumber > pageCount) {
         return res.status(404).json({ message: "Not Found" });
       }
-
+        
       const skip = pageNumber - 1;
       const postCollection = await Post.find({})
         .sort({ date: -1 })
         .skip(skip * pageLimit)
         .limit(pageLimit);
 
-      res.status(200).json({ postCollection, postCount });
+      res.status(200).json({ postCollection, postCount, pageCount });
     } catch (err) {
       return res.status(400).json({ message: `Server Error ${err}` });
     }

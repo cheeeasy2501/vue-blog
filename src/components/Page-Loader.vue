@@ -1,7 +1,6 @@
 <template>
   <div class="content-loader">
     <div class="loader bg-light">
-      <b-spinner class="spinner-size"></b-spinner>
     </div>
   </div>
 </template>

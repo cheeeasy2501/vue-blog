@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const secret = require("../config/secret.config");
 
 class AuthController {
@@ -45,7 +46,22 @@ class AuthController {
     try {
       const { email, password } = req.body;
 
-      const user = await User.findByCredentials(email, password);
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+    
+      const isPasswordValid = await bcrypt.compareSync(password, user.password);
+    
+      if (!isPasswordValid) {
+        return res.status(401).json({
+          message: "Wrond login or password. Try again.",
+          auth: false,
+          token: null,
+        });
+      }
+
       let token = jwt.sign({ id: user._id }, secret, { expiresIn: 86400 });
 
       res

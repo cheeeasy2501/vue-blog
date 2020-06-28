@@ -11,31 +11,30 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    meta: { 
-      auth: true
-    }
+    meta: {
+      auth: true,
+    },
   },
   {
     path: "/post/:id",
     name: "Post",
     component: () => import("../views/Post.vue"),
-    meta: { 
-      auth: true
-    }
+    meta: {
+      auth: true,
+    },
   },
   {
-    path: '/login',
-    name: 'login',
+    path: "/login",
+    name: "login",
     component: Login,
-    
   },
   {
-    path: '/register',
-    name: 'register',
+    path: "/register",
+    name: "register",
     component: Register,
-    meta: { 
-      auth: false
-    }
+    meta: {
+      auth: false,
+    },
   },
 ];
 
@@ -46,10 +45,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.auth)) {
+  if (to.matched.some((record) => record.meta.auth)) {
     if (localStorage.getItem("jwt") == null) {
       next({
-        path: "/login"
+        path: "/login",
       });
     } else {
       next();
@@ -57,6 +56,6 @@ router.beforeEach((to, from, next) => {
   } else {
     next();
   }
-})
+});
 
 export default router;
