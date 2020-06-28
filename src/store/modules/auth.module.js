@@ -70,7 +70,6 @@ const actions = {
       );
       localStorage.removeItem("jwt");
     } catch (err) {
-      console.log(err);
       swal("Server Error!", "Plaese try later", "error");
     }
   },

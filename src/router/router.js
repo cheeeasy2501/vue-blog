@@ -1,10 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 import Home from "../views/Home.vue";
 import Register from "../components/auth/Register.vue";
 import Login from "../components/auth/Login.vue";
 
 Vue.use(VueRouter);
+
+import guard from "./guard";
 
 const routes = [
   {
@@ -27,6 +30,9 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login,
+    meta: {
+      auth: false,
+    },
   },
   {
     path: "/register",
@@ -44,17 +50,18 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.auth)) {
-    if (localStorage.getItem("jwt") == null) {
-      next({
-        path: "/login",
-      });
-    } else {
-      next();
-    }
-  } else {
+router.beforeEach(async (to, from, next) => {
+  const token = localStorage.getItem("jwt");
+  const requiredAuth = to.matched.some((record) => record.meta.auth);
+  const tokenGuard = await guard.checkToken(token).then((response) => response);
+  const authorized = guard.isAuthorized();
+
+  if (requiredAuth && tokenGuard && authorized) {
     next();
+  } else if (!requiredAuth) {
+    next();
+  } else {
+    next({ path: "/login" });
   }
 });
 

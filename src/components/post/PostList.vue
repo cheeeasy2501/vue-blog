@@ -39,8 +39,10 @@ export default {
   watch: {
     currentPage: {
       handler() {
-        this.$store.dispatch("set_currentPage", this.currentPage);
-        this.$store.dispatch("get_posts", this.currentPage);
+        if (this.currentPage !== this.$store.getters.currentPage) {
+          this.$store.dispatch("set_currentPage", this.currentPage);
+          this.$store.dispatch("get_posts", this.currentPage);
+        }
       },
     },
   },

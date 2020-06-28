@@ -4,6 +4,25 @@ const bcrypt = require("bcrypt");
 const secret = require("../config/secret.config");
 
 class AuthController {
+  async getUserByToken(req, res) {
+    try {
+      const id = req.userId;
+
+      if (id) {
+        const user = await User.findOne({ _id: id }).select(["email", "login"]);
+
+        if (user) {
+          return res
+            .status(200)
+            .json({ auth: true, user: user, message: "User find" });
+        }
+      }
+      res.status(401).json({ auth: false, message: "Unauthorized!" });
+    } catch (err) {
+      res.status(500).json({ message: `Server error: ${err}` });
+    }
+  }
+
   async registerUser(req, res) {
     try {
       const { email, login, password, firstname, lastname } = req.body;
@@ -51,14 +70,13 @@ class AuthController {
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-    
+
       const isPasswordValid = await bcrypt.compareSync(password, user.password);
-    
+
       if (!isPasswordValid) {
         return res.status(401).json({
           message: "Wrond login or password. Try again.",
           auth: false,
-          token: null,
         });
       }
 

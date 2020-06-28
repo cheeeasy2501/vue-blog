@@ -2,7 +2,8 @@ const jwt = require("jsonwebtoken");
 
 class AuthMiddleware {
   async verifyToken(req, res, next) {
-    let token = req.headers["x-access-token"];
+    const secret = require("../config/secret.config");
+    const token = req.headers["x-access-token"];
 
     if (!token) {
       return res.status(403).json({ message: "No token!" });
@@ -18,11 +19,11 @@ class AuthMiddleware {
     });
   }
 
-  async registerValidate(req, res, next){
+  async registerValidate(req, res, next) {
     let { email, login, password } = req.body;
 
-    if((email || login || password) === '') {
-      res.status(400).json({ message:'Invalid body' });
+    if ((email || login || password) === "") {
+      res.status(400).json({ message: "Invalid body" });
     }
 
     next();
