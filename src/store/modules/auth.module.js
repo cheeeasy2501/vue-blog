@@ -6,25 +6,37 @@ import router from "@/router/router";
 
 const state = {
   auth: false,
-  form: {
+  registrationForm: {
     email: null,
     login: null,
     password: null,
   },
-
+  loginForm: {
+    email: null,
+    password: null,
+  },
   validate: {
-    notValid: true,
+    loginNotValid: true,
+    registrationNotValid: true,
+  },
+  rules: {
     emailRules: rules.emailRules,
     loginRules: rules.loginRules,
     passwordRules: rules.passwordRules,
   },
 };
 const getters = {
-  form: (state) => {
-    return state.form;
+  loginForm: (state) => {
+    return state.loginForm;
+  },
+  registrationForm: (state) => {
+    return state.registrationForm;
   },
   validate: (state) => {
     return state.validate;
+  },
+  rules: (state) => {
+    return state.rules;
   },
 };
 const mutations = {
@@ -33,12 +45,15 @@ const mutations = {
   },
 };
 const actions = {
-  async getUrl({}, action) {
+  async getOptions(context, action) {
     switch (action) {
       case "login":
-        return authConfig.LOGIN;
+        return { url: authConfig.LOGIN, data: context.state.loginForm };
       case "register":
-        return authConfig.REGISTER;
+        return {
+          url: authConfig.REGISTER,
+          data: context.state.registrationForm,
+        };
       default:
         return false;
     }
@@ -46,10 +61,10 @@ const actions = {
 
   async onSubmit(context, action) {
     try {
-      const url = await context.dispatch("getUrl", action);
+      const options = await context.dispatch("getOptions", action);
       const response = await httpServices.authResponseSubmit(
-        url,
-        context.state.form
+        options.url,
+        options.data
       );
       const data = await response.json();
       const token = await response.headers.get("x-access-token");
@@ -73,7 +88,7 @@ const actions = {
       swal("Server Error!", "Plaese try later", "error");
     }
   },
-  formReset({}, form) {
+  async formReset({}, form) {
     form.reset();
   },
 };

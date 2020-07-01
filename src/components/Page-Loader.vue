@@ -1,7 +1,6 @@
 <template>
   <div class="content-loader">
-    <div class="loader bg-light">
-    </div>
+    <div class="loader bg-light"></div>
   </div>
 </template>
 

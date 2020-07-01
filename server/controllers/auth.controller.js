@@ -42,7 +42,7 @@ class AuthController {
         lastname,
         createdAt: Date.now(),
       });
-
+      
       user.save();
 
       let token = jwt.sign({ id: user._id }, secret, { expiresIn: 86400 });
@@ -64,7 +64,6 @@ class AuthController {
   async loginUser(req, res) {
     try {
       const { email, password } = req.body;
-
       const user = await User.findOne({ email });
 
       if (!user) {

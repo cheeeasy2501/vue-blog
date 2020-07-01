@@ -2,8 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 import Home from "../views/Home.vue";
-import Register from "../components/auth/Register.vue";
-import Login from "../components/auth/Login.vue";
+import Auth from "../views/Auth.vue";
 
 Vue.use(VueRouter);
 
@@ -27,17 +26,9 @@ const routes = [
     },
   },
   {
-    path: "/login",
-    name: "login",
-    component: Login,
-    meta: {
-      auth: false,
-    },
-  },
-  {
-    path: "/register",
-    name: "register",
-    component: Register,
+    path: "/auth",
+    name: "auth",
+    component: Auth,
     meta: {
       auth: false,
     },
@@ -61,7 +52,7 @@ router.beforeEach(async (to, from, next) => {
   } else if (!requiredAuth) {
     next();
   } else {
-    next({ path: "/login" });
+    next({ path: "/auth" });
   }
 });
 

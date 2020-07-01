@@ -29,35 +29,18 @@ export default {
 };
 </script>
 <style>
-body {
-  margin: 0;
-  padding: 0;
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 0.25s;
 }
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+
+.fade-enter-active {
+  transition-delay: 0.25s;
 }
-.container {
-  max-width: 1440px;
-  margin: 0 auto;
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
-  .fade-enter-active, .fade-leave-active {
-    transition-property: opacity;
-    transition-duration: .25s;
-  }
-
-  .fade-enter-active {
-    transition-delay: .25s;
-  }
-
-  .fade-enter, .fade-leave-active {
-    opacity: 0
-  }
-
-
 </style>

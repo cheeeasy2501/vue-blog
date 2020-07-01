@@ -11,7 +11,7 @@ class PostController {
       if (pageNumber - 1 < 0 || pageNumber > pageCount) {
         return res.status(404).json({ message: "Not Found" });
       }
-        
+
       const skip = pageNumber - 1;
       const postCollection = await Post.find({})
         .sort({ date: -1 })

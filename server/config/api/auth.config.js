@@ -6,7 +6,7 @@ const api = serverConfig.api;
 
 const registerPath = "/register";
 const loginPath = "/login";
-const checkedTokenPath = "/token"
+const checkedTokenPath = "/token";
 
 const config = {
   REGISTER: `${server}:${port}${api}${registerPath}`,

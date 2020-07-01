@@ -4,8 +4,8 @@
       <v-list-item>
         <v-list-item-avatar color="grey"></v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title class="headline"
-            > {{ post.title }}</v-list-item-title
+          <v-list-item-title class="headline">
+            {{ post.title }}</v-list-item-title
           >
           <v-list-item-subtitle>by Kurt Wagner</v-list-item-subtitle>
         </v-list-item-content>
@@ -17,16 +17,19 @@
       ></v-img>
 
       <v-card-text>
-         {{ post.body }}
+        {{ post.body }}
       </v-card-text>
 
       <v-card-actions>
-        <v-btn depressed large color="primary"
+        <v-btn
+          depressed
+          large
+          color="primary"
           :to="{ path: `post/${post._id}` }"
         >
           Read
         </v-btn>
-        <v-btn   depressed large color="primary">
+        <v-btn depressed large color="primary">
           Bookmark
         </v-btn>
         <v-spacer></v-spacer>
