@@ -97,12 +97,12 @@ class PostController {
       for (let i = 0; i < 50; i++) {
         const userId = i;
         const title = `Title ${i}`;
-        const body = `Body ${i}`;
+        const content = `content ${i}`;
         const date = Date.now();
         const post = await new Post({
           userId,
           title,
-          body,
+          content,
           date,
         });
 

@@ -1,5 +1,5 @@
 <template>
-  <v-row align="center" justify="center" style="height:100%">
+  <v-row align="center" justify="center" style="height:60vh">
     <v-col cols="12" sm="8" md="6" lg="4">
       <v-card>
         <v-tabs

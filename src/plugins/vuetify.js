@@ -1,15 +1,8 @@
 import Vue from "vue";
 import Vuetify from "vuetify/lib";
-import colors from 'vuetify/es5/util/colors';
+import { TiptapVuetifyPlugin } from "tiptap-vuetify";
 
-Vue.use(Vuetify);
-
-export default new Vuetify({
-  // theme: {
-  //   primary: colors.purple.base, // #E53935
-  //   secondary: colors.teal.base, // #FFCDD2
-  //   accent: colors.deepOrange.base, // #3F51B5
-  // },
+const vuetify = new Vuetify({
   breakpoint: {
     thresholds: {
       xs: 340,
@@ -20,3 +13,12 @@ export default new Vuetify({
     scrollBarWidth: 24,
   },
 });
+
+Vue.use(Vuetify);
+
+Vue.use(TiptapVuetifyPlugin, {
+  vuetify,
+  iconsGroup: "mdi",
+});
+
+export default vuetify;

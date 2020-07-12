@@ -15,6 +15,7 @@ const routes = [
     component: Home,
     meta: {
       auth: true,
+      layout: "Front",
     },
   },
   {
@@ -23,14 +24,25 @@ const routes = [
     component: () => import("../views/Post.vue"),
     meta: {
       auth: true,
+      layout: "Front",
     },
   },
   {
     path: "/auth",
-    name: "auth",
+    name: "Auth",
     component: Auth,
     meta: {
       auth: false,
+      layout: "Auth",
+    },
+  },
+  {
+    path: "/admin",
+    name: "Admin",
+    component: () => import("../views/Admin.vue"),
+    meta: {
+      auth: true,
+      layout: "Admin",
     },
   },
 ];
