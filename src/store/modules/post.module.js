@@ -1,73 +1,77 @@
 import { postConfig } from "../../../server/config/config";
+import http from "../../services/http.service";
 
 const state = {
-  postModel: {
-    postCollection: null,
-    postCount: null,
-    pageCount: null,
-  },
+  posts: null,
+  postCount: null,
+  pageLimit: null,
   currentPage: 1,
   post: {},
 };
 const getters = {
-  postCollection: (state) => {
-    return state.postModel.postCollection;
+  POSTS: (state) => {
+    return state.posts;
   },
-  postCount: (state) => {
-    return state.postModel.postCount;
+  POSTS_COUNT: (state) => {
+    return state.postsCount;
   },
-  pageCount: (state) => {
-    return state.postModel.pageCount;
+  PAGE_LIMIT: (state) => {
+    return state.pageLimit;
   },
-  currentPage: (state) => {
+  CURRENT_PAGE: (state) => {
     return state.currentPage;
   },
-  post: (state) => {
+  POST: (state) => {
     return state.post;
   },
 };
 const mutations = {
-  set_post: (state, payload) => {
+  SET_POST: (state, payload) => {
     state.post = payload;
   },
-  set_postCollection: (state, payload) => {
-    state.postModel = payload;
+  SET_POSTS: (state, payload) => {
+    state.posts = payload;
   },
-  set_currentPage: (state, payload) => {
+  SET_PAGELIMIT: (state, payload) => {
+    state.pageLimit = payload;
+  },
+  SET_POSTSCOUNT: (state, payload) => {
+    state.postsCount = payload;
+  },
+  SET_PAGE: (state, payload) => {
     state.currentPage = payload;
   },
 };
 const actions = {
-  set_posts: (context, payload) => {
-    context.commit("set_postCollection", payload);
+  SET_POSTS: ({ commit }, payload) => {
+    commit("SET_POSTS", payload);
   },
-  set_currentPage: (context, payload) => {
-    context.commit("set_currentPage", payload);
+  SET_PAGE: ({ commit }, payload) => {
+    commit("SET_PAGE", payload);
   },
-  get_posts: async (context, pageNumber) => {
-    context.commit("set_loading", true);
-    let url = postConfig.GET_POSTS + Number(pageNumber);
-    fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        context.commit("set_postCollection", data);
-        context.commit("set_loading", false);
-      });
+  SET_PAGELIMIT: ({ commit }, payload) => {
+    commit("SET_PAGELIMIT", payload);
   },
-
-  get_post: async (context, id) => {
-    context.commit("set_loading", true);
-    let url = postConfig.GET_POST + id;
-    fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        context.commit("set_post", data);
-        context.commit("set_loading", false);
-      });
+  SET_POSTSCOUNT: ({ commit }, payload) => {
+    commit("SET_POSTSCOUNT", payload);
+  },
+  GET_POSTS: async ({ commit }, pageNumber) => {
+    const url = postConfig.GET_POSTS + Number(pageNumber);
+    const options = {
+      method: "GET",
+    };
+    const response = http.requestData(url, options);
+    response.then((data) => commit("SET_POSTS", data.posts));
+    response.then((data) => commit("SET_PAGELIMIT", data.pageLimit));
+    response.then((data) => commit("SET_POSTSCOUNT", data.postsCount));
+  },
+  GET_POST: async ({ commit }, id) => {
+    const url = postConfig.GET_POST + id;
+    const options = {
+      method: "GET",
+    };
+    const response = http.requestData(url, options);
+    response.then((data) => commit("SET_POST", data));
   },
 };
 

@@ -1,4 +1,4 @@
-import httpServices from "@/services/http.services";
+import http from "@/services/http.service";
 import swal from "sweetalert";
 import rules from "@/utils/validators/form.validators";
 import { authConfig } from "@/../server/config/config";
@@ -62,7 +62,7 @@ const actions = {
   async onSubmit(context, action) {
     try {
       const options = await context.dispatch("getOptions", action);
-      const response = await httpServices.authResponseSubmit(
+      const response = await http.authResponseSubmit(
         options.url,
         options.data
       );

@@ -3,7 +3,7 @@
     <div class="post-container">
       <div class="post-block_main">
         <div class="post-title">{{ post.title }}</div>
-        <div class="post-body">{{ post.body }}</div>
+        <div class="post-body">{{ post.content }}</div>
         <router-link :to="{ path: '/' }">Назад</router-link>
       </div>
       <PostCommentsComponent />
@@ -16,10 +16,10 @@ import { mapGetters } from "vuex";
 
 export default {
   created() {
-    this.$store.dispatch("get_post", this.$route.params.id);
+    this.$store.dispatch("GET_POST", this.$route.params.id);
   },
   computed: {
-    ...mapGetters({ post: "post" }),
+    ...mapGetters({ post: "POST" }),
   },
   components: {
     PostCommentsComponent,

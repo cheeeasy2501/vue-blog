@@ -26,22 +26,22 @@ export default {
     currentPage: 1,
   }),
   created() {
-    this.currentPage = this.$store.getters.currentPage;
-    this.$store.dispatch("get_posts", this.currentPage);
+    this.currentPage = this.$store.getters.CURRENT_PAGE;
+    this.$store.dispatch("GET_POSTS", this.currentPage);
   },
   computed: {
     ...mapGetters({
-      posts: "postCollection",
-      totalRows: "postCount",
-      pageLength: "pageCount",
+      posts: "POSTS",
+      totalRows: "postsCount",
+      pageLength: "PAGE_LIMIT",
     }),
   },
   watch: {
     currentPage: {
       handler() {
         if (this.currentPage !== this.$store.getters.currentPage) {
-          this.$store.dispatch("set_currentPage", this.currentPage);
-          this.$store.dispatch("get_posts", this.currentPage);
+          this.$store.dispatch("SET_PAGE", this.currentPage);
+          this.$store.dispatch("GET_POSTS", this.currentPage);
         }
       },
     },

@@ -3,22 +3,22 @@ const Post = require("../models/post.model");
 class PostController {
   async getPage(req, res) {
     try {
-      const pageLimit = 12;
+      const postsPerPage = 12; 
       const { pageNumber } = req.params;
-      const postCount = await Post.find({}).countDocuments();
-      const pageCount = Math.ceil(postCount / pageLimit);
+      const postsCount = await Post.find({}).countDocuments();
+      const pageLimit = Math.ceil(postsCount / postsPerPage);
 
-      if (pageNumber - 1 < 0 || pageNumber > pageCount) {
+      if (pageNumber - 1 < 0 || pageNumber > pageLimit) {
         return res.status(404).json({ message: "Not Found" });
       }
 
       const skip = pageNumber - 1;
-      const postCollection = await Post.find({})
+      const posts = await Post.find({})
         .sort({ date: -1 })
-        .skip(skip * pageLimit)
-        .limit(pageLimit);
+        .skip(skip * postsPerPage)
+        .limit(postsPerPage);
 
-      res.status(200).json({ postCollection, postCount, pageCount });
+      res.status(200).json({ posts, postsCount, pageLimit });
     } catch (err) {
       return res.status(400).json({ message: `Server Error ${err}` });
     }
@@ -64,14 +64,14 @@ class PostController {
     try {
       const { id } = req.body;
 
-      await Post.deleteOne({ _id: id }, (err) => {
+      await Post.deleteOne({ _id: id }, () => {
         return res
           .status(404)
           .json({ message: "Post not found or Invalid body" });
       });
 
       res.status(410).json({ message: "Post deleted" });
-    } catch (e) {
+    } catch (err) {
       res.status(500).json({ message: `Server Error: ${err}` });
     }
   }
