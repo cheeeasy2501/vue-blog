@@ -23,7 +23,7 @@ class routerGuards {
         "x-access-token": token,
       },
     };
-    const tokenValidation = http.request(tokenUrl, options);
+    const tokenValidation = await http.request(tokenUrl, options);
 
     if (tokenValidation.status !== 200) {
       localStorage.removeItem("jwt");
