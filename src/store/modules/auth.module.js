@@ -59,9 +59,9 @@ const actions = {
     }
   },
 
-  async onSubmit({ commit }, action) {
+  async onSubmit({ commit, dispatch }, action) {
     try {
-      const options = await context.dispatch("getOptions", action);
+      const options = await dispatch("getOptions", action);
       const response = await http.authResponseSubmit(options.url, options.data);
       const data = await response.json();
       const token = await response.headers.get("x-access-token");
