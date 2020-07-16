@@ -3,7 +3,7 @@ const Post = require("../models/post.model");
 class PostController {
   async getPage(req, res) {
     try {
-      const postsPerPage = 12; 
+      const postsPerPage = 12;
       const { pageNumber } = req.params;
       const postsCount = await Post.find({}).countDocuments();
       const pageLimit = Math.ceil(postsCount / postsPerPage);

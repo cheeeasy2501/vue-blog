@@ -20,7 +20,7 @@ class AuthMiddleware {
   }
 
   async registerValidate(req, res, next) {
-    let { email, login, password } = req.body;
+    const { email, login, password } = req.body;
 
     if ((email || login || password) === "") {
       res.status(400).json({ message: "Invalid body" });

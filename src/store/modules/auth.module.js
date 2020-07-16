@@ -40,7 +40,7 @@ const getters = {
   },
 };
 const mutations = {
-  set_auth: (state, payload) => {
+  SET_AUTH: (state, payload) => {
     state.auth = payload;
   },
 };
@@ -59,18 +59,15 @@ const actions = {
     }
   },
 
-  async onSubmit(context, action) {
+  async onSubmit({ commit }, action) {
     try {
       const options = await context.dispatch("getOptions", action);
-      const response = await http.authResponseSubmit(
-        options.url,
-        options.data
-      );
+      const response = await http.authResponseSubmit(options.url, options.data);
       const data = await response.json();
       const token = await response.headers.get("x-access-token");
 
       if (data.auth) {
-        context.commit("set_auth", true);
+        commit("SET_AUTH", true);
         localStorage.setItem("jwt", token);
         swal("Successful Login!", "You are now online :)", "success");
         router.push("/");

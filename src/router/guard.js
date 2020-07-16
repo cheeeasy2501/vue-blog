@@ -1,5 +1,6 @@
 import { TOKEN as tokenUrl } from "../../server/config/api/auth.config";
 import authModule from "@/store/modules/auth.module";
+import http from "@/services/http.service";
 
 class routerGuards {
   async checkToken(token) {
@@ -16,18 +17,19 @@ class routerGuards {
   }
 
   async validateToken(token) {
-    const tokenValidation = await fetch(tokenUrl, {
+    const options = {
       method: "POST",
       headers: {
         "x-access-token": token,
       },
-    });
+    };
+    const tokenValidation = http.request(tokenUrl, options);
 
     if (tokenValidation.status !== 200) {
       localStorage.removeItem("jwt");
-
       return false;
     }
+
     const data = await tokenValidation.json();
     authModule.state.auth = data.auth;
 

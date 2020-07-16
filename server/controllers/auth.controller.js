@@ -42,11 +42,8 @@ class AuthController {
         lastname,
         createdAt: Date.now(),
       });
-      
       user.save();
-
-      let token = jwt.sign({ id: user._id }, secret, { expiresIn: 86400 });
-
+      const token = jwt.sign({ id: user._id }, secret, { expiresIn: 86400 });
       res
         .status(200)
         .header("Access-Control-Expose-Headers", "x-access-token")
@@ -78,9 +75,7 @@ class AuthController {
           auth: false,
         });
       }
-
-      let token = jwt.sign({ id: user._id }, secret, { expiresIn: 86400 });
-
+      const token = jwt.sign({ id: user._id }, secret, { expiresIn: 86400 });
       res
         .status(200)
         .header("Access-Control-Expose-Headers", "x-access-token")

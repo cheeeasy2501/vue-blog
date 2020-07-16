@@ -6,13 +6,11 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 
 const app = express();
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 const routes = require("./routes/all.routes");
-
 app.use("/api", routes);
 
 const port = process.env.PORT || 3000;

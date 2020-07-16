@@ -8,12 +8,9 @@ import userModule from "@/store/modules/user.module";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  getters: {
-  },
+  state: {},
+  mutations: {},
+  getters: {},
   actions: {},
   modules: {
     postModule,

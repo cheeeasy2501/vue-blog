@@ -10,7 +10,7 @@ const UserSchema = new Schema({
   lastname: { type: String },
   birthday: { type: Date },
   createdAt: { type: Date, required: true },
-  posts: { type: Schema.Types.ObjectId, ref: 'Post' },
+  posts: { type: Schema.Types.ObjectId, ref: "Post" },
 });
 
 UserSchema.pre("save", async function(next) {

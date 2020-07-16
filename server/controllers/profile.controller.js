@@ -1,7 +1,5 @@
 const User = require("../models/user.model");
 
-class ProfileController {
-    
-}
+class ProfileController {}
 
 module.exports = new ProfileController();
