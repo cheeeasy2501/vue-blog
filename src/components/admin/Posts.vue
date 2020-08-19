@@ -1,9 +1,5 @@
 <template>
-  <v-data-table
-    :headers="headers"
-    :items="[...posts]"
-    class="elevation-1"
-  >
+  <v-data-table :headers="headers" :items="[...posts]" class="elevation-1">
     <template v-slot:top>
       <v-toolbar flat color="white">
         <v-toolbar-title>All Posts</v-toolbar-title>
@@ -145,8 +141,8 @@ export default {
     dialog: false,
     headers: [
       { text: "Title", value: "title" },
-      { text: "Content", value: "content" },
       { text: "Publish in", value: "date" },
+      { text: "Actions", value: "actions", sortable: false },
     ],
     editedIndex: -1,
     editedItem: {
@@ -162,10 +158,10 @@ export default {
   }),
   components: { TiptapVuetify },
   created() {
-    this.$store.dispatch("get_posts");
+    this.$store.dispatch("GET_POSTS");
   },
   computed: {
-       ...mapGetters({ posts: "postCollection" }),
+    ...mapGetters({ posts: "POSTS" }),
     formTitle() {
       return this.editedIndex === -1 ? "New Post" : "Edit Post";
     },
@@ -179,15 +175,15 @@ export default {
 
   methods: {
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.posts.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      const index = this.desserts.indexOf(item);
+      const index = this.posts.indexOf(item);
       confirm("Are you sure you want to delete this item?") &&
-        this.desserts.splice(index, 1);
+        this.posts.splice(index, 1);
     },
 
     close() {
@@ -200,9 +196,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
+        Object.assign(this.posts[this.editedIndex], this.editedItem);
       } else {
-        this.desserts.push(this.editedItem);
+        this.posts.push(this.editedItem);
       }
       this.close();
     },

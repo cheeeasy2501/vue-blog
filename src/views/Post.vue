@@ -6,12 +6,10 @@
         <div class="post-body">{{ post.content }}</div>
         <router-link :to="{ path: '/' }">Назад</router-link>
       </div>
-      <PostCommentsComponent />
     </div>
   </div>
 </template>
 <script>
-import PostCommentsComponent from "@/components/post/Comment.vue";
 import { mapGetters } from "vuex";
 
 export default {
@@ -22,7 +20,6 @@ export default {
     ...mapGetters({ post: "POST" }),
   },
   components: {
-    PostCommentsComponent,
   },
 };
 </script>
