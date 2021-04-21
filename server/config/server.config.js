@@ -1,6 +1,6 @@
 const config = {
   server: process.env.apiUrl,
-  port: "3000",
+  port: process.env.API_PORT,
   api: "/api",
 };
 
