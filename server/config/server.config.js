@@ -1,6 +1,6 @@
 const config = {
-  server: 'https://vue-express-blog-api.herokuapp.com/',
-  port: '45677',
+  server: process.env.API,
+  port: process.env.API_PORT,
   api: "/api",
 };
 
