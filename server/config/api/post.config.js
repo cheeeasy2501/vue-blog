@@ -11,11 +11,11 @@ const deletePostPath = "/post/delete";
 const updatePostPath = "/post/update/";
 
 const config = {
-  GET_POSTS: `${server}:${port}${api}${getPostsPath}`,
-  GET_POST: `${server}:${port}${api}${getPostPath}`,
-  CREATE_POST: `${server}:${port}${api}${createPostPath}`,
-  DELETE_POST: `${server}:${port}${api}${deletePostPath}`,
-  UPDATE_POST: `${server}:${port}${api}${updatePostPath}`,
+  GET_POSTS: `${server}${port}${api}${getPostsPath}`,
+  GET_POST: `${server}${port}${api}${getPostPath}`,
+  CREATE_POST: `${server}${port}${api}${createPostPath}`,
+  DELETE_POST: `${server}${port}${api}${deletePostPath}`,
+  UPDATE_POST: `${server}${port}${api}${updatePostPath}`,
 };
 
 module.exports = config;

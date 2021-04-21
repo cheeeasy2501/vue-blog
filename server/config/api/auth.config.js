@@ -9,9 +9,9 @@ const loginPath = "/login";
 const checkedTokenPath = "/token";
 
 const config = {
-  REGISTER: `${server}:${port}${api}${registerPath}`,
-  LOGIN: `${server}:${port}${api}${loginPath}`,
-  TOKEN: `${server}:${port}${api}${checkedTokenPath}`,
+  REGISTER: `${server}${port}${api}${registerPath}`,
+  LOGIN: `${server}${port}${api}${loginPath}`,
+  TOKEN: `${server}${port}${api}${checkedTokenPath}`,
 };
 
 module.exports = config;
