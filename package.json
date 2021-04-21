@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "devserve": "nodemon ./server/server.js",
+    "start": "node ./server/server.js",
     "test": "vue-cli-service serve"
   },
   "dependencies": {
