@@ -1,5 +1,5 @@
 const config = {
-  server: "http://localhost",
+  server: process.env.apiUrl,
   port: "3000",
   api: "/api",
 };
